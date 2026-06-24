@@ -75,14 +75,17 @@ section {
 .home {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 0 9%;
-    background: url('./IMG_1105_3.png') no-repeat;
-    background-size: cover;
-    background-position: center;
+    background: var(--bg-color);
+    gap: 5rem;
+    position: relative;
 }
 
 .home-content {
     max-width: 60rem;
+    flex: 1;
+    z-index: 10;
 }
 
 .home-content h1 {
@@ -174,6 +177,7 @@ section {
 .home-sci {
     position: absolute;
     bottom: 4rem;
+    left: 9%;
     width: 400px;
     display: flex;
     justify-content: space-between;
@@ -217,17 +221,16 @@ section {
 }
 
 .home-imgHover {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 45%;
+    flex: 1;
     height: 100%;
-    background: transparent;
+    background: url('./samiullah.png') no-repeat center;
+    background-size: contain;
     transition: 3s;
+    position: relative;
+    min-height: 600px;
 }
 
 .home-imgHover:hover {
-    background: var(--bg-color);
     opacity: .8;
 }
 
@@ -580,4 +583,138 @@ span {
 }
 .footer-iconTop a:hover i {
     color: var(--main-color);
+}
+
+/* ============================================================
+   Sticky header (engaged after small scroll)
+   ============================================================ */
+.header.sticky {
+    background: var(--bg-color);
+    padding: 1.5rem 9%;
+    box-shadow: 0 .4rem 1rem rgba(0, 0, 0, .35);
+}
+
+/* ============================================================
+   Responsive breakpoints
+   ============================================================ */
+
+/* Extra-large desktop tweaks */
+@media (max-width: 1200px) {
+    html { font-size: 55%; }
+}
+
+/* Tablet landscape */
+@media (max-width: 991px) {
+    .header { padding: 2rem 4%; }
+    section { padding: 10rem 4% 2rem; }
+    .home { padding: 0 4%; }
+    .home-sci { left: 4%; }
+    .footer { padding: 2rem 4%; }
+}
+
+/* Tablet portrait → show mobile menu */
+@media (max-width: 768px) {
+    #menu-icon { display: block; }
+
+    .navbar {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 1rem 4%;
+        background: var(--bg-color);
+        border-top: .1rem solid rgba(0, 0, 0, .2);
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .35);
+        display: none;
+    }
+    .navbar.active { display: block; }
+    .navbar a {
+        display: block;
+        font-size: 2rem;
+        margin: 1.5rem 0;
+    }
+
+    .home {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        gap: 3rem;
+        padding-top: 12rem;
+        padding-bottom: 8rem;
+        min-height: 100vh;
+    }
+    .home-content { max-width: 100%; }
+    .home-content h1 { font-size: 4.5rem; }
+    .home-content .text-animate h3 { font-size: 2.6rem; }
+    .home-content p { margin: 1.5rem 0 3rem; }
+    .btn-box {
+        margin: 0 auto;
+        width: 30rem;
+    }
+    .home-sci {
+        position: static;
+        width: 100%;
+        max-width: 30rem;
+        margin: 3rem auto 0;
+        justify-content: space-around;
+    }
+    .home-imgHover {
+        order: -1;
+        width: 100%;
+        min-height: 32rem;
+        flex: 0 0 auto;
+    }
+
+    .heading { font-size: 4rem; }
+
+    .education .education-row,
+    .skills .skills-row {
+        gap: 3rem;
+    }
+
+    .footer {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
+
+/* Small phones */
+@media (max-width: 520px) {
+    html { font-size: 50%; }
+    .header { padding: 1.5rem 4%; }
+    section { padding: 8rem 4% 2rem; }
+    .home { padding: 0 4%; padding-top: 10rem; }
+    .home-content h1 { font-size: 3.8rem; }
+    .home-content .text-animate h3 { font-size: 2.2rem; }
+    .home-content p { font-size: 1.5rem; }
+    .home-imgHover { min-height: 26rem; }
+
+    .btn-box {
+        width: 100%;
+        max-width: 30rem;
+        gap: 1rem;
+    }
+    .btn-box .btn { width: 14rem; font-size: 1.6rem; }
+
+    .heading { font-size: 3.4rem; margin-bottom: 2rem; }
+    .about-img { width: 20rem; height: 20rem; }
+    .about-content h3 { font-size: 2.2rem; }
+
+    .contact form .input-box .input-field { width: 100%; }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+    .home-content h1 { font-size: 3.2rem; }
+    .home-content .text-animate h3 { font-size: 1.9rem; }
+    .heading { font-size: 3rem; }
+    .btn-box { width: 100%; flex-direction: column; height: auto; gap: 1rem; }
+    .btn-box .btn { width: 100%; height: 4.6rem; }
+}
+
+/* Landscape phones — keep things from getting too tall */
+@media (max-height: 480px) and (orientation: landscape) {
+    .home { min-height: auto; padding-top: 12rem; padding-bottom: 4rem; }
+    .home-imgHover { min-height: 22rem; }
 }
