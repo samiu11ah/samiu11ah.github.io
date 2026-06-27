@@ -39,4 +39,55 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+
+    // ── CONTACT FORM ──
+    const contactForm = document.querySelector('.contact form');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const btn = contactForm.querySelector('button[type="submit"]');
+            const originalText = btn.textContent;
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+
+            const data = {
+                name:    contactForm.querySelector('input[placeholder="Full Name"]').value.trim(),
+                email:   contactForm.querySelector('input[type="email"]').value.trim(),
+                phone:   contactForm.querySelector('input[placeholder="Mobile Number"]').value.trim(),
+                subject: contactForm.querySelector('input[placeholder="Subject"]').value.trim(),
+                message: contactForm.querySelector('textarea').value.trim(),
+            };
+
+            try {
+                const res = await fetch('https://email-service.msamiullah295.workers.dev/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await res.json();
+
+                if (result.success) {
+                    btn.textContent = 'Message Sent ✓';
+                    btn.style.background = '#00c48c';
+                    contactForm.reset();
+                } else {
+                    btn.textContent = 'Failed — Try Again';
+                    btn.style.background = '#e74c3c';
+                }
+            } catch (err) {
+                btn.textContent = 'Failed — Try Again';
+                btn.style.background = '#e74c3c';
+            } finally {
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 3000);
+            }
+        });
+    }
+
 });
